@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Security.Claims;
 using keepr.Models;
 using Keepr.Models;
 using Keepr.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Keepr.Controllers
@@ -32,12 +34,13 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       }
     }
-
+    [Authorize]
     [HttpPost]
     public ActionResult<Keep> Post([FromBody] Keep keep)
     {
       try
       {
+        keep.UserId = HttpContext.User.FindFirstValue("Id"); // THIS IS HOW YOU GET THE ID of the currently logged in user
         return Ok(_repo.CreateKeep(keep));
       }
       catch (Exception e)
@@ -46,6 +49,7 @@ namespace Keepr.Controllers
       }
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public ActionResult<string> Delete(int id)
     {
@@ -59,5 +63,20 @@ namespace Keepr.Controllers
         return BadRequest("Bad request");
       }
     }
+
+    // [Authorize]
+    // [HttpGet("{id}")]
+    // public ActionResult<IEnumerable<Keep>> Get(int id)
+    // {
+    //   try
+    //   {
+    //     return Ok(_repo.GetKeepsByUserId(id));
+    //   }
+    //   catch (Exception e)
+    //   {
+
+    //     return BadRequest(e.Message);
+    //   }
+    // }
   }
 }
