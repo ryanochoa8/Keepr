@@ -67,7 +67,7 @@ namespace Keepr.Controllers
     }
 
     [HttpGet("{id}")] //NOTE "Can Get Keep By keep Id"
-    public ActionResult<Keep> GetAction(int id)
+    public ActionResult<Keep> Get(int id)
     {
       try
       {
