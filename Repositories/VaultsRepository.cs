@@ -13,6 +13,16 @@ namespace Keepr.Repositories
     {
       _db = db;
     }
+    public Vault CreateVault(Vault vault)
+    {
+      int id = _db.ExecuteScalar<int>(@"
+      INSERT INTO vaults (id, name, description, userId)
+      VALUES (@Id, @Name, @Description, @UserId);
+      SELECT LAST_INSERT_ID();
+      ", vault);
+      vault.Id = id;
+      return vault;
+    }
     public IEnumerable<Vault> GetVaultsByUserId(string UserId)
     {
       try
@@ -39,16 +49,6 @@ namespace Keepr.Repositories
       }
     }
 
-    public Vault CreateVault(Vault vault)
-    {
-      int id = _db.ExecuteScalar<int>(@"
-      INSERT INTO vaults (id, name, description, userId)
-      VALUES (@Id, @Name, @Description, @UserId);
-      SELECT LAST_INSERT_ID();
-      ", vault);
-      vault.Id = id;
-      return vault;
-    }
 
     public bool DeleteVault(int id)
     {

@@ -19,37 +19,7 @@ namespace Keepr.Controllers
     }
 
     [Authorize]
-    [HttpGet("{id}")]
-    public ActionResult<Vault> GetAction(int id)
-    {
-      try
-      {
-        return Ok(_repo.GetVaultById(id));
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
-
-    //NOTE HttpGet("user") is not on the test
-    [Authorize]
-    [HttpGet]
-    public ActionResult<IEnumerable<Vault>> Get(string UserId)
-    {
-      try
-      {
-        UserId = HttpContext.User.FindFirstValue("Id");
-        return Ok(_repo.GetVaultsByUserId(UserId));
-      }
-      catch (Exception e)
-      {
-
-        return BadRequest(e.Message);
-      }
-    }
-    [Authorize]
-    [HttpPost]
+    [HttpPost] //NOTE "Can Create Vault"
     public ActionResult<Vault> Post([FromBody] Vault vault)
     {
       try
@@ -64,7 +34,37 @@ namespace Keepr.Controllers
     }
 
     [Authorize]
-    [HttpDelete("{id}")]
+    [HttpGet] //NOTE "Can Get User Vaults"
+    public ActionResult<IEnumerable<Vault>> Get(string UserId)
+    {
+      try
+      {
+        UserId = HttpContext.User.FindFirstValue("Id");
+        return Ok(_repo.GetVaultsByUserId(UserId));
+      }
+      catch (Exception e)
+      {
+
+        return BadRequest(e.Message);
+      }
+    }
+
+    [Authorize]
+    [HttpGet("{id}")] //NOTE "Can Get Vault By Id"
+    public ActionResult<Vault> Get(int id)
+    {
+      try
+      {
+        return Ok(_repo.GetVaultById(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [Authorize]
+    [HttpDelete("{id}")] //NOTE "Can Delete Vault"
     public ActionResult<string> Delete(int id)
     {
       try

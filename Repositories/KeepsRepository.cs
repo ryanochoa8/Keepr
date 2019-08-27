@@ -17,13 +17,22 @@ namespace Keepr.Repositories
     {
       _db = db;
     }
-    public IEnumerable<Keep> GetKeeps()
+    public Keep CreateKeep(Keep keep) //NOTE "Can Create Keep"
+    {
+
+      int id = _db.ExecuteScalar<int>(@"
+      INSERT INTO keeps (name, description, userId, img, isPrivate)
+      VALUES (@Name, @Description, @UserId, @Img, @IsPrivate);
+      SELECT LAST_INSERT_ID();", keep);
+      keep.Id = id;
+      return keep;
+    }
+    public IEnumerable<Keep> GetKeeps() //NOTE "Can Get Public Keeps
     {
       return _db.Query<Keep>("SELECT * FROM keeps WHERE isPrivate = 0");
     }
 
-    // NOTE tried userId, FromBody, keep keep, and id. No clue how to do this
-    public IEnumerable<Keep> GetKeepsByUserId(string UserId)
+    public IEnumerable<Keep> GetKeepsByUserId(string UserId) //NOTE "Can Get keeps by User"
     {
       try
       {
@@ -35,7 +44,7 @@ namespace Keepr.Repositories
         throw new Exception("No keeps found on this user " + UserId);
       }
     }
-    public Keep GetKeepById(int id)
+    public Keep GetKeepById(int id) //NOTE "Can Get Keep By keep Id"
     {
       try
       {
@@ -47,17 +56,7 @@ namespace Keepr.Repositories
         throw new Exception("No keep found at this id: " + id);
       }
     }
-    public Keep CreateKeep(Keep keep)
-    {
-
-      int id = _db.ExecuteScalar<int>(@"
-      INSERT INTO keeps (name, description, userId, img, isPrivate)
-      VALUES (@Name, @Description, @UserId, @Img, @IsPrivate);
-      SELECT LAST_INSERT_ID();", keep);
-      keep.Id = id;
-      return keep;
-    }
-    public bool DeleteKeep(int id)
+    public bool DeleteKeep(int id) //NOTE "Can Delete Keep"
     {
       int success = _db.Execute("DELETE FROM keeps WHERE id = @id", new { id });
       return success > 0;

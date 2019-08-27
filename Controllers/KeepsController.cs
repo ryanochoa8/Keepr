@@ -21,50 +21,8 @@ namespace Keepr.Controllers
       _repo = repo;
     }
 
-    [HttpGet]
-    public ActionResult<IEnumerable<Keep>> Get()
-    {
-      try
-      {
-        return Ok(_repo.GetKeeps());
-      }
-      catch (Exception e)
-      {
-
-        return BadRequest(e.Message);
-      }
-    }
-
-    [HttpGet("{id}")]
-    public ActionResult<Keep> GetAction(int id)
-    {
-      try
-      {
-        return Ok(_repo.GetKeepById(id));
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
-
     [Authorize]
-    [HttpGet("user")]
-    public ActionResult<IEnumerable<Keep>> Get(string UserId)
-    {
-      try
-      {
-        UserId = HttpContext.User.FindFirstValue("Id");
-        return Ok(_repo.GetKeepsByUserId(UserId));
-      }
-      catch (Exception e)
-      {
-
-        return BadRequest(e.Message);
-      }
-    }
-    [Authorize]
-    [HttpPost]
+    [HttpPost] //NOTE "Can Create Keep"
     public ActionResult<Keep> Post([FromBody] Keep keep)
     {
       try
@@ -78,8 +36,52 @@ namespace Keepr.Controllers
       }
     }
 
+    [HttpGet] //NOTE "Can Get Public Keeps
+    public ActionResult<IEnumerable<Keep>> Get()
+    {
+      try
+      {
+        return Ok(_repo.GetKeeps());
+      }
+      catch (Exception e)
+      {
+
+        return BadRequest(e.Message);
+      }
+    }
+
     [Authorize]
-    [HttpDelete("{id}")]
+    [HttpGet("user")] //NOTE "Can Get keeps by User"
+    public ActionResult<IEnumerable<Keep>> Get(string UserId)
+    {
+      try
+      {
+        UserId = HttpContext.User.FindFirstValue("Id");
+        return Ok(_repo.GetKeepsByUserId(UserId));
+      }
+      catch (Exception e)
+      {
+
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpGet("{id}")] //NOTE "Can Get Keep By keep Id"
+    public ActionResult<Keep> GetAction(int id)
+    {
+      try
+      {
+        return Ok(_repo.GetKeepById(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+
+    [Authorize]
+    [HttpDelete("{id}")] //NOTE "Can Delete Keep"
     public ActionResult<string> Delete(int id)
     {
       try
@@ -92,6 +94,5 @@ namespace Keepr.Controllers
         return BadRequest("Bad request");
       }
     }
-    // NOTE tried userId, FromBody, keep keep, and id. No clue how to do this
   }
 }
