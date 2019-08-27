@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Data;
 using Dapper;
 using Keepr.Models;
@@ -10,6 +12,31 @@ namespace Keepr.Repositories
     public VaultsRepository(IDbConnection db)
     {
       _db = db;
+    }
+    public IEnumerable<Vault> GetVaultsByUserId(string UserId)
+    {
+      try
+      {
+        return _db.Query<Vault>(@"SELECT * FROM vaults WHERE UserId = @UserId", new { UserId });
+      }
+      catch (Exception)
+      {
+
+        throw new Exception("No vault found at this id: " + UserId);
+      }
+    }
+
+    public Vault GetVaultById(int id)
+    {
+      try
+      {
+        return _db.QuerySingle<Vault>(@"SELECT * FROM vaults WHERE id = @id", new { id });
+      }
+      catch (Exception)
+      {
+
+        throw new Exception("No vault found at this id: " + id);
+      }
     }
 
     public Vault CreateVault(Vault vault)

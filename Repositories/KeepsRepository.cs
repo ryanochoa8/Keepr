@@ -6,6 +6,7 @@ using Dapper;
 using keepr.Models;
 using Keepr.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Keepr.Repositories
 {
@@ -20,18 +21,32 @@ namespace Keepr.Repositories
     {
       return _db.Query<Keep>("SELECT * FROM keeps WHERE isPrivate = 0");
     }
-    // public IEnumerable<Keep> GetKeepsByUserId(int userId)
-    // {
-    //   return _db.Query<Keep>("SELECT * FROM keeps WHERE userId = @userId", new { userId });
-    // }
-    // internal User GetUserById(string id)
-    // {
-    //   var user = _db.Query<User>(@"
-    //   SELECT * FROM users WHERE id = @id
-    //   ", new { id }).FirstOrDefault();
-    //   if (user == null) { throw new Exception("Invalid UserId"); }
-    //   return user;
-    // }
+
+    // NOTE tried userId, FromBody, keep keep, and id. No clue how to do this
+    public IEnumerable<Keep> GetKeepsByUserId(string UserId)
+    {
+      try
+      {
+        return _db.Query<Keep>(@"SELECT * FROM keeps WHERE UserId = @UserId", new { UserId });
+      }
+      catch (Exception)
+      {
+
+        throw new Exception("No keeps found on this user " + UserId);
+      }
+    }
+    public Keep GetKeepById(int id)
+    {
+      try
+      {
+        return _db.QuerySingle<Keep>(@"SELECT * FROM keeps WHERE id = @id", new { id });
+      }
+      catch (Exception)
+      {
+
+        throw new Exception("No keep found at this id: " + id);
+      }
+    }
     public Keep CreateKeep(Keep keep)
     {
 
