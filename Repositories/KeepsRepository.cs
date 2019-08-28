@@ -56,6 +56,16 @@ namespace Keepr.Repositories
         throw new Exception("No keep found at this id: " + id);
       }
     }
+
+    internal void UpdateByID(Keep keep) //NOTE "Can Edit Keep"
+    {
+      var success = _db.Execute("UPDATE keeps SET name = @Name, description = @Description, img = @Img, isPrivate = @IsPrivate WHERE id = @Id", keep);
+      if (success == 0)
+      {
+        throw new Exception("Update was unsuccessful");
+      }
+    }
+
     public bool DeleteKeep(int id) //NOTE "Can Delete Keep"
     {
       int success = _db.Execute("DELETE FROM keeps WHERE id = @id", new { id });

@@ -79,6 +79,20 @@ namespace Keepr.Controllers
       }
     }
 
+    [Authorize]
+    [HttpPut("{id}")] //NOTE "Can Edit Keep"
+    public ActionResult<string> Put(int id, [FromBody] Keep keep)
+    {
+      try
+      {
+        _repo.UpdateByID(keep);
+        return Ok("Update Successful");
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
 
     [Authorize]
     [HttpDelete("{id}")] //NOTE "Can Delete Keep"
