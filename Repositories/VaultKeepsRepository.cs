@@ -33,5 +33,12 @@ namespace Keepr.Repositories
       ";
       return _db.Query<VaultKeep>(query, new { VaultId, UserId });
     }
+
+    public VaultKeep DeleteVaultKeep(VaultKeep vaultKeep)
+    {
+      int id = _db.Execute("DELETE FROM vaultkeeps WHERE vaultId = @vaultId AND keepId = @keepId", vaultKeep);
+      vaultKeep.Id = id;
+      return vaultKeep;
+    }
   }
 }

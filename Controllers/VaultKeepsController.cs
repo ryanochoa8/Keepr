@@ -18,14 +18,14 @@ namespace Keepr.Controllers
       _repo = repo;
     }
 
-    [HttpPost]
-    public ActionResult<VaultKeep> AddKeepToVault([FromBody] VaultKeep vaultKeep)
+    [HttpPost] //NOTE "Can Create Vault Keep"
+    public ActionResult<VaultKeep> Post([FromBody] VaultKeep vaultKeep)
     {
       vaultKeep.UserId = HttpContext.User.FindFirstValue("Id");
       return Ok(_repo.AddKeepIdToVaultId(vaultKeep));
     }
 
-    [HttpGet("{VaultId}")]
+    [HttpGet("{VaultId}")] //NOTE "Can Get Vault Keeps"
     public ActionResult<IEnumerable<Keep>> Get(int VaultId)
     {
       try
@@ -39,6 +39,13 @@ namespace Keepr.Controllers
 
         return BadRequest(e.Message);
       }
+    }
+
+    [HttpPut] //NOTE "Can Delete Vault Keep"
+    public ActionResult<VaultKeep> Delete([FromBody] VaultKeep vaultKeep)
+    {
+      vaultKeep.UserId = HttpContext.User.FindFirstValue("Id");
+      return Ok(_repo.DeleteVaultKeep(vaultKeep));
     }
   }
 }
