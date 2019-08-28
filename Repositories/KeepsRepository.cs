@@ -62,8 +62,9 @@ namespace Keepr.Repositories
       var success = _db.Execute("UPDATE keeps SET name = @Name, description = @Description, img = @Img, isPrivate = @IsPrivate WHERE id = @Id", keep);
       if (success == 0)
       {
-        throw new Exception("Update was unsuccessful");
+        throw new Exception("Update failed");
       }
+
     }
 
     public bool DeleteKeep(int id) //NOTE "Can Delete Keep"
