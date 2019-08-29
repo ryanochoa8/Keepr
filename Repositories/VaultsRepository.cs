@@ -13,7 +13,7 @@ namespace Keepr.Repositories
     {
       _db = db;
     }
-    public Vault CreateVault(Vault vault)
+    public Vault CreateVault(Vault vault) //NOTE "Can Create Vault"
     {
       int id = _db.ExecuteScalar<int>(@"
       INSERT INTO vaults (id, name, description, userId)
@@ -23,7 +23,7 @@ namespace Keepr.Repositories
       vault.Id = id;
       return vault;
     }
-    public IEnumerable<Vault> GetVaultsByUserId(string UserId)
+    public IEnumerable<Vault> GetVaultsByUserId(string UserId) //NOTE "Can Get User Vaults"
     {
       try
       {
@@ -36,7 +36,7 @@ namespace Keepr.Repositories
       }
     }
 
-    public Vault GetVaultById(int id)
+    public Vault GetVaultById(int id) //NOTE "Can Get Vault By Id"
     {
       try
       {
@@ -50,7 +50,7 @@ namespace Keepr.Repositories
     }
 
 
-    public bool DeleteVault(int id)
+    public bool DeleteVault(int id) //NOTE "Can Delete Vault"
     {
       int success = _db.Execute("DELETE FROM vaults WHERE id = @id", new { id });
       return success > 0;
