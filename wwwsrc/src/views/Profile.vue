@@ -5,7 +5,9 @@
       <h1 class="row justify-content-center col-8">Dashboard</h1>
       <button v-if="user.id" @click="logout" class="btn btn-danger my-2 col-2">Logout</button>
     </div>
+    <createKeep></createKeep>
     <userKeeps></userKeeps>
+    <createVault></createVault>
     <userVaults></userVaults>
   </div>
 </template>
@@ -14,6 +16,8 @@
 <script>
   import userKeeps from '../Components/UserKeeps.vue'
   import userVaults from '../Components/UserVaults.vue'
+  import createKeep from '../Components/CreateKeep.vue'
+  import createVault from '../Components/CreateVault.vue'
   import router from '../router'
 
 
@@ -38,7 +42,9 @@
     },
     components: {
       userKeeps,
-      userVaults
+      userVaults,
+      createKeep,
+      createVault
     }
   }
 </script>

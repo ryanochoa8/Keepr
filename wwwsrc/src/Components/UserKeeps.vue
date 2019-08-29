@@ -14,8 +14,10 @@
             <p class="col-4"><i class="far fa-bookmark"></i><br>{{userKeep.keeps}}</p>
           </div>
           <div class="row justify-content-center">
-            <p>Share Keep <i class="far fa-share-square"></i></p>
+            <button class="col-8 btn btn-outline-success">Share Keep <i class="far fa-share-square"></i></button>
             <!-- This should later be changed to a link or a modal -->
+            <button @click="deleteKeepById(userKeep.id)" class="btn btn-outline-danger offset-1 col-3"><i
+                class="far fa-trash-alt"></i></button>
           </div>
         </div>
       </div>
@@ -37,7 +39,11 @@
         return this.$store.state.userKeeps
       }
     },
-    methods: {},
+    methods: {
+      deleteKeepById(id) {
+        this.$store.dispatch("deleteKeepById", id)
+      }
+    },
     components: {}
   }
 </script>

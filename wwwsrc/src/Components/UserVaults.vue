@@ -3,10 +3,13 @@
     <h3 class="row mx-2 border-bottom border-dark justify-content-center">Your Vaults</h3>
     <div class="row justify-content-center">
       <div class="col-3 m-4 px-1 justify-content-center card" v-for="userVault in userVaults" style="width: 18rem;">
-        <img class="card-img-top" :src="userVault.img" alt="userVault img">
         <div class="card-body">
           <h6 class="border-bottom pb-3">{{userVault.name}}</h6>
           <p>{{userVault.description}}</p>
+          <div class="row justify-content-center">
+            <button @click="deleteVaultById(userVault.id)" class="btn btn-danger offset-1 col-3"><i
+                class="far fa-trash-alt"></i></button>
+          </div>
         </div>
       </div>
     </div>
@@ -27,7 +30,11 @@
         return this.$store.state.userVaults
       }
     },
-    methods: {},
+    methods: {
+      deleteVaultById(id) {
+        this.$store.dispatch("deleteVaultById", id)
+      }
+    },
     components: {}
   }
 </script>
