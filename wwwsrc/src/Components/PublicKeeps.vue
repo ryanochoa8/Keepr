@@ -1,10 +1,13 @@
 <template>
   <div class="publicKeeps row justify-content-center">
-    <div class="col-3 m-4 px-1 justify-content-center card" v-for="keep in publicKeeps" style="width: 18rem;">
-      <img class="card-img-top" :src="keep.img" alt="keep img">
-      <div class="card-body">
-        <h6 class="border-bottom pb-3">{{keep.name}}</h6>
-        <p>{{keep.description}}</p>
+    <h3 class="row mx-2 border-bottom border-dark justify-content-center">Public Keeps</h3>
+    <div class="row justify-content-center">
+      <div class="col-3 m-4 px-1 justify-content-center card" v-for="keep in publicKeeps" style="width: 18rem;">
+        <img class="card-img-top" :src="keep.img" alt="keep img">
+        <div class="card-body">
+          <h6 class="border-bottom pb-3">{{keep.name}}</h6>
+          <p>{{keep.description}}</p>
+        </div>
       </div>
     </div>
   </div>
