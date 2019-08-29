@@ -1,13 +1,9 @@
 <template>
   <div class="home container-fluid">
-    <div class="row">
-      <h1>Welcome Home {{user.username}}</h1>
-      <div class="row">
-        <button v-if="user.id" @click="logout">logout</button>
-        <router-link v-else :to="{name: 'login'}">Login</router-link>
-        <publicKeeps></publicKeeps>
-      </div>
-    </div>
+    <h1>Welcome Home {{user.username}}</h1>
+    <button v-if="user.id" @click="logout">logout</button>
+    <router-link v-else :to="{name: 'login'}">Login</router-link>
+    <publicKeeps></publicKeeps>
   </div>
 </template>
 

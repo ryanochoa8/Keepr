@@ -1,9 +1,10 @@
 <template>
-  <div class="publicKeeps">
-    <div class="col-4" v-for="keep in publicKeeps">
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" :src="keep.Img" alt="Card image cap">
-        <h3 class="card-text">{{keep.Name}}</h3>
+  <div class="publicKeeps row justify-content-center">
+    <div class="col-3 m-4 px-1 justify-content-center card" v-for="keep in publicKeeps" style="width: 18rem;">
+      <img class="card-img-top" :src="keep.img" alt="keep img">
+      <div class="card-body">
+        <h6 class="border-bottom pb-3">{{keep.name}}</h6>
+        <p>{{keep.description}}</p>
       </div>
     </div>
   </div>
@@ -15,6 +16,9 @@
     name: 'publicKeeps',
     data() {
       return {}
+    },
+    mounted() {
+      // this.$store.dispatch('getPublicKeeps')
     },
     computed: {
       publicKeeps() {
