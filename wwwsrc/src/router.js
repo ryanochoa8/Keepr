@@ -31,7 +31,7 @@ export default new Router({
       component: Profile
     },
     {
-      path: '/vault',
+      path: '/vault/:id',
       name: 'vault',
       component: Vault
     },
