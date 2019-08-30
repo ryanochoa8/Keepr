@@ -6,6 +6,10 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 // @ts-ignore
 import Profile from './views/Profile.vue'
+// @ts-ignore
+import Vault from './views/Vault.vue'
+// @ts-ignore
+import Keep from './views/Keep.vue'
 
 Vue.use(Router)
 
@@ -25,6 +29,16 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/vault',
+      name: 'vault',
+      component: Vault
+    },
+    {
+      path: '/keep/:keepId',
+      name: 'keep',
+      component: Keep
     }
   ]
 })

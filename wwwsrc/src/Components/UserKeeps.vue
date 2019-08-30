@@ -3,7 +3,7 @@
     <h3 class="row mx-2 border-bottom border-dark justify-content-center">Your Keeps</h3>
     <div class="row justify-content-center">
       <div class="col-3 m-4 p-2 justify-content-center card d-flex" v-for="userKeep in userKeeps" style="width: 18rem;">
-        <img class="card-img-top px-2" :src="userKeep.img" alt="userKeep img">
+        <img class="card-img-top px-2" @click="viewKeep(userKeep)" :src="userKeep.img" alt="userKeep img">
         <div class="card-body">
           <h6 class="border-bottom pb-2">{{userKeep.name}}</h6>
           <p>{{userKeep.description}}</p>
@@ -42,6 +42,9 @@
     methods: {
       deleteKeepById(id) {
         this.$store.dispatch("deleteKeepById", id)
+      },
+      viewKeep(userKeep) {
+        this.$router.push({ name: "keep", params: { keepId: userKeep.id } })
       }
     },
     components: {}

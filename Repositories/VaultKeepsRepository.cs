@@ -24,14 +24,14 @@ namespace Keepr.Repositories
       return vaultKeep;
     }
 
-    internal IEnumerable<VaultKeep> GetVaultKeepsByVaultId(int VaultId, string UserId) //NOTE "Can Get Vault Keeps"
+    internal IEnumerable<Keep> GetVaultKeepsByVaultId(int VaultId, string UserId) //NOTE "Can Get Vault Keeps"
     {
       string query = @"
       SELECT * FROM vaultkeeps vk
       INNER JOIN keeps k ON k.id = vk.keepId 
       WHERE (vaultId = @vaultId AND vk.userId = @userId)
       ";
-      return _db.Query<VaultKeep>(query, new { VaultId, UserId });
+      return _db.Query<Keep>(query, new { VaultId, UserId });
     }
 
     public VaultKeep DeleteVaultKeep(VaultKeep vaultKeep) //NOTE "Can Delete Vault Keep"

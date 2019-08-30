@@ -7,8 +7,9 @@
           <h6 class="border-bottom pb-3">{{userVault.name}}</h6>
           <p>{{userVault.description}}</p>
           <div class="row justify-content-center">
-            <button @click="deleteVaultById(userVault.id)" class="btn btn-danger offset-1 col-3"><i
+            <button @click="deleteVaultById(userVault.id)" class="btn btn-danger col-3"><i
                 class="far fa-trash-alt"></i></button>
+            <button @click="viewVault(userVault)" class="offset-1 col-3"><i class="far fa-eye"></i></button>
           </div>
         </div>
       </div>
@@ -33,6 +34,9 @@
     methods: {
       deleteVaultById(id) {
         this.$store.dispatch("deleteVaultById", id)
+      },
+      viewVault(userVault) {
+        this.$router.push({ name: "vault", params: { id: userVault.id } })
       }
     },
     components: {}
