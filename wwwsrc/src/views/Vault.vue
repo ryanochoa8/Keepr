@@ -1,6 +1,7 @@
 <template>
   <div class="Vault container-fluid">
     <div class="row">
+      <button @click="profile" class="btn btn-warning my-2 offset-3 col-6">Return to Profile</button>
       <h3 class="col-12">{{activeVault.name}}</h3>
       <h6 class="col-12">{{activeVault.description}}</h6>
       <div v-for="keep in vault" class="col-4">
@@ -12,6 +13,9 @@
 
 
 <script>
+  import router from '../router'
+
+
   export default {
     name: 'Vault',
     data() {
@@ -32,7 +36,11 @@
         return this.$store.state.keepsByVault
       }
     },
-    methods: {},
+    methods: {
+      profile() {
+        router.push({ name: 'profile' })
+      }
+    },
     components: {}
   }
 </script>

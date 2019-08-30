@@ -1,6 +1,7 @@
 <template>
   <div class="Keep container-fluid">
     <div class="row">
+      <button @click="profile" class="btn btn-warning my-2 offset-3 col-6">Return to Profile</button>
       <h3 class="col-12">{{activeKeep.name}}</h3>
       <img class="col-8 offset-2" :src="activeKeep.img" alt="activeKeep img">
       <h6 class="col-12">{{activeKeep.description}}</h6>
@@ -21,6 +22,10 @@
 
 
 <script>
+
+  import router from '../router'
+
+
   export default {
     name: 'Keep',
     data() {
@@ -47,6 +52,9 @@
           keepId: this.$route.params.keepId
         }
         this.$store.dispatch('addKeepToVault', data)
+      },
+      profile() {
+        router.push({ name: 'profile' })
       }
     },
     components: {}
