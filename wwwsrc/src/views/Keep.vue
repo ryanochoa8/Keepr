@@ -36,6 +36,7 @@
         id: this.$route.params.keepId
       }
       this.$store.dispatch('getActiveKeep', data)
+      this.$store.dispatch('getUserVaults')
     },
     computed: {
       activeKeep() {
